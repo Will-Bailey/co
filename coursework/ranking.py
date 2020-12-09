@@ -14,7 +14,7 @@ class Ranking(List):
     def build_from_order(self, order, tournament):
         self = order
         self.tournament = tournament
-        self.kemeny_score = get_kemeny_score(self)
+        self.kemeny_score = calc_kemeny_score(self)
 
     def build_from_neighbour(self, neighbour, swap_index):
         self = neighbour[swap_index], neighbour[swap_index + 1] = neighbour[swap_index + 1], neighbour[swap_index]
@@ -29,7 +29,7 @@ class Ranking(List):
             elif edge[1]==self[swap_index] && (edge[2]==self[swap_index + 1]):
                 self.kemeny_score += edge[0]
 
-    def get_kemeny_score(self):
+    def calc_kemeny_score(self):
         tournament = self.tournament
         ranking = self
         assert len(tournament.participants)==len(ranking)
@@ -45,8 +45,11 @@ class Ranking(List):
 
         return score
 
+    def get_kemeny_score(self):
+        return self.kemeny_score
 
-
-
-    def get_neighbours():
-        pass
+    def print_participants(self):
+        participant_ranking = []
+        for i in self:
+            participant_ranking.append(self.tournament.participants[i])
+        return participant_ranking
