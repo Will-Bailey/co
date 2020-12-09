@@ -1,0 +1,40 @@
+import ranking
+import tournament
+import random
+import math
+
+class SimulatedAnnealing:
+    tournament = None
+    initial_ranking = None
+    initial_temp = None
+    temp_length = None
+    cooling_ratio = None
+    num_non_improve = None
+
+    def __init__(tournament=None, initial_ranking=None, initial_temp=None, temp_length=None, cooling_ratio=None, num_non_improve=None):
+        self.tournament = tournament
+        self.initial_ranking = initial_ranking
+        self.initial_temp = initial_temp
+        self.temp_length = temp_length
+        self.cooling_ratio = cooling_ratio
+        self.num_non_improve = num_non_improve
+
+    def search(self):
+        current_ranking = self.initial_ranking
+        best_ranking = self.initial_ranking
+        current_temp = self.initial_tempt
+        while stagnant_iterations < num_non_improve:
+            for i in range(1, self.temp_length):
+                new_ranking = ranking(neighbour=current_ranking, swap_index=random.randint(0, len(current_ranking)-2))
+                delta_score = new_ranking.get_kemeny_score()-current_ranking.get_kemeny_score()
+                if new_ranking.get_kemeny_score() < best_ranking.get_kemeny_score():
+                    best_ranking = new_ranking
+                    stagnant_iterations = -1
+                
+                if delta_score <= 0:
+                    current_ranking = new_ranking
+                elif random.uniform(0,1) < math.e**((-delta_score)/current_temp):
+                    current_ranking = new_ranking
+                stagnant_iterations ++
+            current_temp *= cooling_ratio
+        return best_ranking
