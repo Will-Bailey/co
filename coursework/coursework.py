@@ -1,4 +1,4 @@
-import ranking
-import SA
+import Ranking
+import SimulatedAnnealing 
 
-simulatedAnnealing
+SimulatedAnnealing

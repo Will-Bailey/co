@@ -1,5 +1,5 @@
-import ranking
-import tournament
+import Ranking
+import Tournament
 import random
 import math
 
