@@ -35,6 +35,6 @@ class SimulatedAnnealing:
                     current_ranking = new_ranking
                 elif random.uniform(0,1) < math.e**((-delta_score)/current_temp):
                     current_ranking = new_ranking
-                stagnant_iterations ++
+                stagnant_iterations += 1
             current_temp *= cooling_ratio
         return best_ranking

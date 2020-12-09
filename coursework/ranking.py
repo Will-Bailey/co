@@ -1,11 +1,11 @@
-class Ranking(List):
+class Ranking(list):
     kemeny_score = None
     tournament = None
 
     def __init__(order=None, tournament=None, neighbour=None, swap_index=None):
-        if (order!=None) && (tournament!=None):
+        if (order!=None) & (tournament!=None):
             self.build_from_order(order, tournament)
-        elif (ranking!=None) && (swap_index!=None):
+        elif (ranking!=None) & (swap_index!=None):
             self.build_from_neighbour(neighbour, swap_index)
         else:
             assert False, "Invalid configuration of build variables"
@@ -23,10 +23,10 @@ class Ranking(List):
 
         for edge in self.tournament:
             # If the new higher ranked participant won, decrease the kemeny score by the weight of this edge
-            if edge[1]==self[swap_index] && (edge[2]==self[swap_index + 1]):
+            if edge[1]==self[swap_index] & (edge[2]==self[swap_index + 1]):
                 self.kemeny_score -= edge[0]
             # Else if the new higher ranked participant lost, increase the kemeny score by the weight of this edge
-            elif edge[1]==self[swap_index] && (edge[2]==self[swap_index + 1]):
+            elif edge[1]==self[swap_index] & (edge[2]==self[swap_index + 1]):
                 self.kemeny_score += edge[0]
 
     def calc_kemeny_score(self):

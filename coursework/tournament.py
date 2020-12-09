@@ -53,4 +53,4 @@ class Tournament:
             string += str(edge[2]+1)
             string += "\n"
 
-    return string
+        return string
