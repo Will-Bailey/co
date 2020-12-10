@@ -27,8 +27,8 @@ class SimulatedAnnealing:
         while stagnant_iterations < self.num_non_improve:
             for i in range(1, self.temp_length):
                 new_ranking = Ranking(neighbour=current_ranking, swap_index=random.randint(0, len(current_ranking)-2))
-                print("Examining:" + str(new_ranking))
                 delta_score = new_ranking.get_kemeny_score()-current_ranking.get_kemeny_score()
+                
                 if new_ranking.get_kemeny_score() < best_ranking.get_kemeny_score():
                     best_ranking = new_ranking
                     stagnant_iterations = -1
@@ -38,5 +38,5 @@ class SimulatedAnnealing:
                 elif random.uniform(0,1) < math.e**((-delta_score)/current_temp):
                     current_ranking = new_ranking
                 stagnant_iterations += 1
-            current_temp *= cooling_ratio
+            current_temp *= self.cooling_ratio
         return best_ranking
