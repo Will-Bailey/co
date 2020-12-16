@@ -4,11 +4,11 @@ class Ranking(list):
     kemeny_score = None
     tournament = None
 
-    def __init__(self, order=None, tournament=None, neighbour=None, swap_index=None):
+    def __init__(self, order=None, tournament=None, neighbour=None, swap_index_1=None, swap_index_2=None):
         if (order!=None) & (tournament!=None):
             self.build_from_order(order, tournament)
-        elif (neighbour!=None) & (swap_index!=None):
-            self.build_from_neighbour(neighbour, swap_index)
+        elif (neighbour!=None) & (swap_index_1!=None) & (swap_index_2!=None):
+            self.build_from_neighbour(neighbour, swap_index_1, swap_index_2)
         else:
             assert False, "Invalid configuration of build variables"
         
@@ -17,21 +17,23 @@ class Ranking(list):
         self.tournament = tournament
         self.kemeny_score = self.calc_kemeny_score()
 
-    def build_from_neighbour(self, neighbour, swap_index):
+    def build_from_neighbour(self, neighbour, swap_index_1, swap_index_2):
+        assert swap_index_1 < swap_index_2
         
         self.build_from_order(list(neighbour), neighbour.tournament)
 
-        self[swap_index], self[swap_index+1] = self[swap_index+1], self[swap_index]
+        self[swap_index_1], self[swap_index_2] = self[swap_index_2], self[swap_index_1]
 
         delta_score = 0
         for edge in self.tournament.edges:
-            # If the new higher ranked participant won, decrease the kemeny score by the weight of this edge
-            if edge[1]==self[swap_index] & (edge[2]==self[swap_index + 1]):
-                delta_score -= edge[0]
-            # Else if the new higher ranked participant lost, increase the kemeny score by the weight of this edge
-            elif edge[1]==self[swap_index] & (edge[2]==self[swap_index + 1]):
-                delta_score += edge[0]
-        self.kemeny_score += delta_score
+            if swap_index_1 == edge[1] & edge[2] in self[swap_index_1:(swap_index_2 + 1)]:
+                self.kemeny_score += edge[0]
+            elif swap_index_2 == edge[1] & edge[2] in self[swap_index_1:swap_index_2 + 1]:
+                self.kemeny_score -= edge[0]
+            elif swap_index_1 ==edge[2] & edge[1] in self[swap_index_1:swap_index_2 + 1]:
+                self.kemeny_score -= edge[0]
+            elif swap_index_2 ==edge[2] & edge[1] in self[swap_index_1:swap_index_2 + 1]:
+                self.kemeny_score += edge[0]
 
     def __str__(self):
         #return str(self.get_participants())

@@ -25,7 +25,12 @@ class SimulatedAnnealing:
         current_temp = self.initial_temp
         while stagnant_iterations < self.num_non_improve:
             for i in range(1, self.temp_length):
-                new_ranking = Ranking(neighbour=current_ranking, swap_index=random.randint(0, len(current_ranking)-2))
+                random_index_1 = random.randint(0, len(current_ranking)-1)
+                random_index_2 = random.randint(0, len(current_ranking)-1)
+                while random_index_1 == random_index_2:
+                    random_index_2 = random.randint(0, len(current_ranking)-1)
+
+                new_ranking = Ranking(neighbour=current_ranking, swap_index_1=min([random_index_1, random_index_2]), swap_index_2=max([random_index_1, random_index_2]))
                 delta_score = new_ranking.get_kemeny_score()-current_ranking.get_kemeny_score()
                 
                 if new_ranking.get_kemeny_score() < best_ranking.get_kemeny_score():
