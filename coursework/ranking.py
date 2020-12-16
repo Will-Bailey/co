@@ -33,9 +33,9 @@ class Ranking(list):
 
         # Calculate the difference in kemeny score
         for edge in self.tournament.edges:
-            if edge[1] == self[0] & self.index(edge[2]) <= swap_index:
+            if (edge[1] == self[0]) & (self.index(edge[2]) <= swap_index):
                 self.kemeny_score -= edge[0]
-            elif edge[2] == self[0] & self.index(edge[1]) <= swap_index:
+            if (edge[2] == self[0]) & (self.index(edge[1]) <= swap_index):                
                 self.kemeny_score += edge[0]
 
     #String method fro printing the ranking
