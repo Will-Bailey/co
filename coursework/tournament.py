@@ -1,3 +1,5 @@
+from SimulatedAnnealing import SimulatedAnnealing
+
 class Tournament:
     participants = []
     edges = []
@@ -55,3 +57,9 @@ class Tournament:
             string += "\n"
 
         return string
+
+    def get_best_ranking(self, initial_ranking, initial_temp, temp_length, cooling_ratio, num_non_improve):
+        
+        search = SimulatedAnnealing(tournament=self, initial_ranking=initial_ranking, initial_temp=initial_temp, temp_length=temp_length, cooling_ratio=cooling_ratio, num_non_improve=num_non_improve)
+
+        return search.search()

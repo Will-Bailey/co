@@ -1,5 +1,4 @@
 from Ranking import Ranking
-from Tournament import Tournament
 import random
 import math
 
@@ -35,7 +34,9 @@ class SimulatedAnnealing:
                 
                 if delta_score <= 0:
                     current_ranking = new_ranking
+                    print("Making downhill move")
                 elif random.uniform(0,1) < math.e**((-delta_score)/current_temp):
+                    print("Making uphill move")
                     current_ranking = new_ranking
                 stagnant_iterations += 1
             current_temp *= self.cooling_ratio
