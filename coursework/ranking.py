@@ -22,17 +22,22 @@ class Ranking(list):
 
     # The build method for constructing the neighbour of an existing ranking.
     def build_from_neighbour(self, neighbour, swap_index):
+        assert swap_index >= 1
+
         # Copy the neighbour and swap the desired elemtents to create a new ranking
-        self.build_from_order(list(neighbour), neighbour.tournament)
+        #self.build_from_order(list(neighbour), neighbour.tournament)
+        super().__init__(list(neighbour))
+        self.tournament = neighbour.tournament
+        self.kemeny_score = neighbour.kemeny_score
         self.insert(0, self.pop(swap_index))
 
         # Calculate the difference in kemeny score
         for edge in self.tournament.edges:
             if edge[1] == self[0] & self.index(edge[2]) <= swap_index:
                 self.kemeny_score -= edge[0]
-            elif edge[2] == self[0]:
+            elif edge[2] == self[0] & self.index(edge[1]) <= swap_index:
                 self.kemeny_score += edge[0]
-    
+
     #String method fro printing the ranking
     def __str__(self):
         return str(self.get_indices())
