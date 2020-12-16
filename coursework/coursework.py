@@ -1,6 +1,6 @@
 from tournament import Tournament
 from ranking import Ranking
-from SimulatedAnnealing import SimulatedAnnealing 
+from simulatedAnnealing import SimulatedAnnealing 
 
 tournament = Tournament(definition_file="1994_Formula_One.wmg")
 

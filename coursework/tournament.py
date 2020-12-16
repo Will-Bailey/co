@@ -1,4 +1,4 @@
-from SimulatedAnnealing import SimulatedAnnealing
+from simulatedAnnealing import SimulatedAnnealing
 
 # A tournament is a set of participants and a set of weighted edges between these participants
 class Tournament:

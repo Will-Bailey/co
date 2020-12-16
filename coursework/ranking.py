@@ -28,7 +28,7 @@ class Ranking(list):
         #self.build_from_order(list(neighbour), neighbour.tournament)
         super().__init__(list(neighbour))
         self.tournament = neighbour.tournament
-        self.kemeny_score = neighbour.kemeny_score
+        self.kemeny_score = neighbour.get_kemeny_score()
         self.insert(0, self.pop(swap_index))
 
         # Calculate the difference in kemeny score

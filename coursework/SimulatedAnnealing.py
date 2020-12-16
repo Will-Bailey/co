@@ -44,15 +44,12 @@ class SimulatedAnnealing:
                 # If the new ranking is better than the current ranking, accept the new ranking
                 if delta_score <= 0:
                     current_ranking = new_ranking
-                    print("Making downhill move")
                 # Else if the new ranking is worse than the current ranking, accept the new ranking on a probabilty based on the current temperature
                 elif random.uniform(0,1) < math.e**((-delta_score)/current_temp):
-                    print("Making uphill move")
                     current_ranking = new_ranking
                 
                 # Increase the number of solutions that have been looked at since the last improvement to the best solution
                 stagnant_iterations += 1
-                print(best_ranking.get_kemeny_score(), best_ranking.calc_kemeny_score())
             # Alter the current temperature
             current_temp *= self.cooling_ratio
         return best_ranking
