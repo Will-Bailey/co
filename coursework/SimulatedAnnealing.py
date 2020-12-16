@@ -1,4 +1,4 @@
-from Ranking import Ranking
+from ranking import Ranking
 import random
 import math
 
