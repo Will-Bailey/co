@@ -6,11 +6,11 @@ class Ranking(list):
     tournament = None
 
     # Constructor to determine how the ranking will be created, either from scratch or as a neighbour of an existing ranking
-    def __init__(self, order=None, tournament=None, neighbour=None, swap_index_1=None, swap_index_2=None):
+    def __init__(self, order=None, tournament=None, neighbour=None, swap_index=None):
         if (order!=None) & (tournament!=None):
             self.build_from_order(order, tournament)
-        elif (neighbour!=None) & (swap_index_1!=None) & (swap_index_2!=None):
-            self.build_from_neighbour(neighbour, swap_index_1, swap_index_2)
+        elif (neighbour!=None) & (swap_index!=None):
+            self.build_from_neighbour(neighbour, swap_index)
         else:
             assert False, "Invalid configuration of build variables"
         

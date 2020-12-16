@@ -31,10 +31,7 @@ class SimulatedAnnealing:
             for i in range(1, self.temp_length):
                 #Pick 2 random indices to switch to genereate a neighbouring solution
                 random_index_1 = random.randint(0, len(current_ranking)-1)
-                random_index_2 = random.randint(0, len(current_ranking)-1)
-                while random_index_1 == random_index_2:
-                    random_index_2 = random.randint(0, len(current_ranking)-1)
-                new_ranking = Ranking(neighbour=current_ranking, swap_index_1=min([random_index_1, random_index_2]), swap_index_2=max([random_index_1, random_index_2]))
+                new_ranking = Ranking(neighbour=current_ranking, swap_index=random.randint(0, len(current_ranking)-1))
 
                 # Calculate the difference in Kemeny Score between the 2 solutions being comapred
                 delta_score = new_ranking.get_kemeny_score()-current_ranking.get_kemeny_score()
