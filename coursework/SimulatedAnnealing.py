@@ -30,7 +30,7 @@ class SimulatedAnnealing:
             # Inner loop to iterate over random neighbouring solutions of the current solution for the temperature length
             for i in range(1, self.temp_length):
                 #Pick 2 random indices to switch to genereate a neighbouring solution
-                new_ranking = Ranking(neighbour=current_ranking, swap_index=random.randint(1, len(current_ranking)-1))
+                new_ranking = Ranking(neighbour=current_ranking, swap_index=random.randint(0, len(current_ranking)-2))
 
                 # Calculate the difference in Kemeny Score between the 2 solutions being comapred
                 delta_score = new_ranking.get_kemeny_score()-current_ranking.get_kemeny_score()
