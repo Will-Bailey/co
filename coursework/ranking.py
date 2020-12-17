@@ -1,4 +1,5 @@
 import copy
+from tabulate import tabulate
 
 # A ranking is an ordering of the particpants of a tournament
 class Ranking(list):
@@ -63,6 +64,13 @@ class Ranking(list):
         for i in self:
             participant_ranking.append(self.tournament.participants[i])
         return participant_ranking
+
+    def get_table(self):
+        table_list = []
+        participant_ranking = self.get_participants()
+        for i in range(1, len(self.tournament.participants)+1):
+            table_list.append([i, participant_ranking[i-1]])
+        return tabulate(table_list, headers=["Ranking", "Racer"])
 
     def get_indices(self):
         return list(self)
