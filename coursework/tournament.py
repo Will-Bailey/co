@@ -22,6 +22,8 @@ class Tournament:
         # Remove the 2 lines that conatin metadata not necessary to encode within the tournament
         num_participants = int(lines.pop(0))
         self.meta = lines.pop(num_participants)
+        for i in range(0, num_participants):
+            self.edges.append([-1] * num_participants)
 
         # Iterate through the lines and parse them into the relevant attributes of the tournament
         for line in lines:
@@ -30,8 +32,7 @@ class Tournament:
             if lines.index(full_line) < num_participants:
                 self.participants.append(line[1])
             else:
-                sanitised_line = (int(line[0]), int(line[1])-1, int(line[2])-1)
-                self.edges.append(sanitised_line)
+                self.edges[int(line[1])-1][int(line[2])-1] = int(line[0])
 
     # The build method for constructing a tournament from a file by extracting the string from that file
     def build_from_file(self, file):

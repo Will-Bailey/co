@@ -32,30 +32,28 @@ class Ranking(list):
         self.insert(0, self.pop(swap_index))
 
         # Calculate the difference in kemeny score
-        for edge in self.tournament.edges:
-            if (edge[1] == self[0]) & (self.index(edge[2]) <= swap_index):
-                self.kemeny_score -= edge[0]
-            if (edge[2] == self[0]) & (self.index(edge[1]) <= swap_index):                
-                self.kemeny_score += edge[0]
+        for i in range(1, swap_index+1):
+            winning_edge = self.tournament.edges[self[0]][self[i]]
+            loosing_edge = self.tournament.edges[self[i]][self[0]]
+            if winning_edge>=0:
+                self.kemeny_score -= winning_edge
+            elif loosing_edge>=0:
+                self.kemeny_score += loosing_edge
 
-    #String method fro printing the ranking
+    #String method for printing the ranking
     def __str__(self):
         return str(self.get_indices())
 
     #The method used to calculate the kemeny score of a ranking from scratch 
     def calc_kemeny_score(self):
-        tournament = self.tournament
-        ranking = self
-        assert len(tournament.participants)==len(ranking)
+        assert len(self.tournament.participants)==len(self)
 
         score = 0
 
-        for edge in tournament.edges:
-            winner = edge[1]
-            loser = edge[2]
-
-            if ranking.index(winner) > ranking.index(loser):
-                score += edge[0]
+        for winner in range(0, len(self.tournament.participants)):
+            for looser in range(0, len(self.tournament.participants)):
+                if (self.tournament.edges[winner][looser]>=0) & (self.index(winner) > self.index(looser)):
+                    score += self.tournament.edges[winner][looser]
 
         return score
 
